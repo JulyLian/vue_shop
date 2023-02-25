@@ -32,7 +32,11 @@ import {
   Tooltip,
   Pagination,
   Dialog,
-  MessageBox
+  MessageBox,
+  Tag,
+  Tree,
+  Select,
+  Option
  } from 'element-ui'
 //导入axios
 import axios from 'axios'
@@ -77,6 +81,10 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
+Vue.use(Select)
+Vue.use(Option)
 Vue.prototype.$message = Message  //把弹框组件挂载到vue原型对象上
 Vue.prototype.$confirm = MessageBox.confirm
 //应用插件

@@ -5,6 +5,8 @@ import Login from '../components/Login'
 import Home from '../components/Home'
 import Welcome from '../components/Welcome'
 import Users from '../components/user/Users'
+import Rights from '../components/power/Rights'
+import Roles from '../components/power/Roles'
 
 //创建并暴露一个路由器
 const router = new VueRouter({
@@ -24,11 +26,19 @@ const router = new VueRouter({
              children: [    //children属性是子路由的意思
                 {
                     path: '/welcome',
-                    component: Welcome,
+                    component: Welcome
                 },
                 {
                     path: '/users',
-                    component: Users,
+                    component: Users
+                },
+                {
+                    path: '/rights',
+                    component: Rights
+                },
+                {
+                    path: '/roles',
+                    component: Roles
                 }  
              ]
         }
