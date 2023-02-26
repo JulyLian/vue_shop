@@ -36,7 +36,8 @@ import {
   Tag,
   Tree,
   Select,
-  Option
+  Option,
+  Cascader
  } from 'element-ui'
 //导入axios
 import axios from 'axios'
@@ -85,8 +86,10 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Cascader)
 Vue.prototype.$message = Message  //把弹框组件挂载到vue原型对象上
 Vue.prototype.$confirm = MessageBox.confirm
+
 //应用插件
 Vue.use(VueRouter)
 

@@ -52,8 +52,8 @@
             <el-table-column label="角色描述" prop="roleDesc"></el-table-column>
             <el-table-column label="操作" width="300px">
                 <template v-slot="scope">
-                    <!-- 编辑角色功能未完成，api接口好像有问题 -->
-                    <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)">编辑</el-button>
+                    <!-- 编辑角色功能已完成 -->
+                    <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditRoleDialog(scope.row.id)">编辑</el-button>
                     <!-- 删除角色功能已完成 -->
                     <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeRoleById(scope.row.id)">删除</el-button>
                     <el-button type="warning" icon="el-icon-setting" size="mini" @click="showSetRightDialog(scope.row)">分配权限</el-button>
@@ -70,7 +70,7 @@
     width="50%"
     @close="addRoleDialogClosed"
     >
-        <el-form :model="addRoleForm" :rules="addRoleDialogVisible" ref="addRoleFormRef" label-width="80px">
+        <el-form :model="addRoleForm" :rules="addRoleFormRules" ref="addRoleFormRef" label-width="80px">
             <el-form-item label="用户名" prop="roleName">
                 <el-input v-model="addRoleForm.roleName"></el-input>
             </el-form-item>
@@ -86,13 +86,20 @@
     <!-- 修改角色对话框 -->
     <el-dialog
     title="修改角色"
-    :visible.sync="editDialogVisible"
+    :visible.sync="editRoleDialogVisible"
     width="50%"
     >
-        <span>这是一段信息</span>
+        <el-form :model="editRoleForm" :rules="editRoleFormRules" ref="editRoleFormRef" label-width="70px">
+            <el-form-item label="角色名称" disabled>
+                <el-input v-model="editRoleForm.roleName"></el-input>
+            </el-form-item>
+            <el-form-item label="角色描述">
+                <el-input v-model="editRoleForm.roleDesc"></el-input>
+            </el-form-item> 
+        </el-form>
             <span slot="footer" class="dialog-footer">
-            <el-button @click="editDialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="editDialogVisible = false">确 定</el-button>
+            <el-button @click="editRoleDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="editRoleInfo">确 定</el-button>
         </span>
     </el-dialog>
 
@@ -140,8 +147,9 @@ export default {
                 ]
             },
             //控制修改角色对话框的显示与隐藏
-            editDialogVisible: false,
-            editForm: {},
+            editRoleDialogVisible: false,
+            editRoleForm: {},
+            editRoleFormRules: {},
             //控制分配权限对话框的显示与隐藏
             SetRightDialogVisible: false,
             //所有权限的数据
@@ -191,14 +199,32 @@ export default {
             })
         },
         // 展示编辑角色的对话框
-        async showEditDialog(id) {
-            const {data: res} = await this.$http.put('roles/'+ id)
-            if(res.meta.status !== 200) {
+        async showEditRoleDialog(id) {
+            // console.log(id) //可以获得id值
+             const {data: res} = await this.$http.get('roles/'+ id)
+             if(res.meta.status !== 200) {
                 return this.$message.error('获取角色信息失败！')
-            }
-            this.editForm = res.data
-            this.editDialogVisible = true
+             }
+            //  this.$message.success('获取角色信息成功！')
+            //  console.log({data: res})
+            //const {data: res}
+            this.editRoleForm = res.data
+            this.editRoleDialogVisible = true
         },
+        async editRoleInfo() {
+            //console.log(this.editRoleForm)  //返回的数据有roleId【注意：roleId不能写成RoleId =_=】
+            const {data: res} = await this.$http.put('roles/' + this.editRoleForm.roleId, {
+                roleName: this.editRoleForm.roleName,
+                roleDesc: this.editRoleForm.roleDesc
+            })
+            if(res.meta.status !== 200) {
+                return this.$message.error('更新角色信息失败！')
+            }
+            this.editRoleDialogVisible = false
+            this.getRolesList()
+            this.$message.success('更新角色信息成功！')
+        },
+        
         //根据id删除角色信息
         async removeRoleById(id) {
             // console.log(id)
