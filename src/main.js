@@ -37,7 +37,10 @@ import {
   Tree,
   Select,
   Option,
-  Cascader
+  Cascader,
+  Alert,
+  Tabs,
+  TabPane
  } from 'element-ui'
 //导入axios
 import axios from 'axios'
@@ -87,6 +90,9 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.prototype.$message = Message  //把弹框组件挂载到vue原型对象上
 Vue.prototype.$confirm = MessageBox.confirm
 

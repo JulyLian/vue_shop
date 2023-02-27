@@ -8,6 +8,7 @@ import Users from '../components/user/Users'
 import Rights from '../components/power/Rights'
 import Roles from '../components/power/Roles'
 import Cate from '../components/goods/Cate'
+import Params from '../components/goods/Params'
 
 //创建并暴露一个路由器
 const router = new VueRouter({
@@ -44,6 +45,10 @@ const router = new VueRouter({
                 {
                     path: '/categories',
                     component: Cate
+                },
+                {
+                    path: '/params',
+                    component: Params
                 }  
              ]
         }

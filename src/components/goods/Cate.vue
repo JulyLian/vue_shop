@@ -172,7 +172,7 @@ export default {
         }
     },
     created() {
-        this.getCateList()
+        this.getCateList()     
     },
     methods: {
         //获取商品分类数据
@@ -292,8 +292,7 @@ export default {
             this.getCateList()
             this.$message.success('更新分类信息成功！')
         }
-        
-        
+            
     }
 
 }
