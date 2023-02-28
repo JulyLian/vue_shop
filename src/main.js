@@ -40,8 +40,21 @@ import {
   Cascader,
   Alert,
   Tabs,
-  TabPane
+  TabPane,
+  Steps,
+  Step,
+  CheckboxGroup,
+  Checkbox,
+  Upload
  } from 'element-ui'
+
+ //导入富文本编辑器
+import VueQuillEditor from 'vue-quill-editor'
+//导入富文本编辑器对应的样式
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme 
+
 //导入axios
 import axios from 'axios'
 //配置请求的根路径
@@ -54,10 +67,22 @@ axios.interceptors.request.use(config => {
   //在最后必须return config
   return config
 })
-
 //把包挂载到vue原型对象上
 Vue.prototype.$http = axios  //每一个vue组件都可以通过this直接访问到$http,从而发起ajax请求
 
+//全局定义一个格式化时间的过滤器
+Vue.filter('dataFormat',function(originval) {
+  const dt = new Date(originval)
+  const y = dt.getFullYear()
+  const m = (dt.getMonth() + 1 + '').padStart(2,'0')  //Month是从0开始的，所以要加1，字符串的padStart(2,'0'):不足两位数，用0填充
+  const d = (dt.getDate() + '').padStart(2, '0')
+
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+})
 
 Vue.config.productionTip = false
 
@@ -93,11 +118,18 @@ Vue.use(Cascader)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Upload)
 Vue.prototype.$message = Message  //把弹框组件挂载到vue原型对象上
 Vue.prototype.$confirm = MessageBox.confirm
 
 //应用插件
 Vue.use(VueRouter)
+//将富文本编辑器注册为全局可用的组件
+Vue.use(VueQuillEditor)
 
 new Vue({
   router:router,
