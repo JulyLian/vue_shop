@@ -45,7 +45,9 @@ import {
   Step,
   CheckboxGroup,
   Checkbox,
-  Upload
+  Upload,
+  Timeline,
+  TimelineItem
  } from 'element-ui'
 
  //导入富文本编辑器
@@ -71,7 +73,7 @@ axios.interceptors.request.use(config => {
 Vue.prototype.$http = axios  //每一个vue组件都可以通过this直接访问到$http,从而发起ajax请求
 
 //全局定义一个格式化时间的过滤器
-Vue.filter('dataFormat',function(originval) {
+Vue.filter('dateFormat',function(originval) {
   const dt = new Date(originval)
   const y = dt.getFullYear()
   const m = (dt.getMonth() + 1 + '').padStart(2,'0')  //Month是从0开始的，所以要加1，字符串的padStart(2,'0'):不足两位数，用0填充
@@ -123,6 +125,8 @@ Vue.use(Step)
 Vue.use(CheckboxGroup)
 Vue.use(Checkbox)
 Vue.use(Upload)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 Vue.prototype.$message = Message  //把弹框组件挂载到vue原型对象上
 Vue.prototype.$confirm = MessageBox.confirm
 

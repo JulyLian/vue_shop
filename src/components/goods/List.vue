@@ -34,7 +34,7 @@
             </el-table-column>
             <el-table-column label="操作" width="130px">
                 <template v-slot="scope">
-                    <el-button type="primary" icon="el-icon-edit" size="mini" @click="goAddpage"></el-button>
+                    <el-button type="primary" icon="el-icon-edit" size="mini"></el-button>
                     <el-button type="danger" icon="el-icon-delete" size="mini"  @click="removeById(scope.row.goods_id)"></el-button>
                 </template>
             </el-table-column>
@@ -54,6 +54,7 @@
 
     </el-card>
 
+
   </div>
 </template>
 
@@ -70,7 +71,9 @@ export default {
             //商品列表
             goodslist: [],
             //总数据条数
-            total: 0
+            total: 0,
+
+            
         }
     },
     created() {
@@ -114,7 +117,8 @@ export default {
         },
         goAddpage() {
             this.$router.push('/goods/add')  //路由导航对象
-        }
+        },
+        
     }
 
 }
